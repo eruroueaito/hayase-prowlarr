@@ -23,7 +23,7 @@ export default new class Prowlarr {
     if (!query) return []
 
     const base = (CORS_PROXY || PROWLARR_URL).replace(/\/+$/, '')
-    const url = `${base}/api/v1/search?query=${encodeURIComponent(query)}&type=search&categories=5070,5000,2000`
+    const url = `${base}/api/v1/search?query=${encodeURIComponent(query)}&type=search&categories=5070&categories=5000&categories=2000`
 
     try {
       const res = await fetch(url, { headers: { 'X-Api-Key': API_KEY } })
