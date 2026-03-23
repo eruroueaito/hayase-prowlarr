@@ -10,7 +10,7 @@
 // ─── Configuration ────────────────────────────────────────────────────────────
 const PROWLARR_URL = 'http://localhost:9696'
 const API_KEY = '7a03897923eb41fdbbdb7e76a275bd23'  // Prowlarr → Settings → General → API Key
-const CORS_PROXY = 'http://localhost:3001'  // leave empty to use Prowlarr directly
+const CORS_PROXY = 'https://localhost:3001'  // leave empty to use Prowlarr directly
 // ──────────────────────────────────────────────────────────────────────────────
 
 export default new class Prowlarr {
