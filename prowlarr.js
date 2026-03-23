@@ -3,30 +3,25 @@
  * Purpose: Search torrents via Prowlarr API and return results in Hayase format
  * Input: TorrentQuery { titles, episode, resolution, exclusions }
  * Output: TorrentResult[] { title, link, hash, seeders, leechers, downloads, size, date, accuracy, type }
- * Dependencies: Prowlarr instance (localhost:9696) + CORS proxy (localhost:3001)
- * Notes: Runs in Web Worker — edit PROWLARR_URL, API_KEY, CORS_PROXY below before use
+ * Dependencies: CORS proxy (localhost:3001) — proxy handles Prowlarr URL and API key
+ * Notes: Zero-config extension. All settings are on the proxy side.
  */
 
-// ─── Configuration ────────────────────────────────────────────────────────────
-const PROWLARR_URL = 'http://localhost:9696'
-const API_KEY = '7a03897923eb41fdbbdb7e76a275bd23'  // Prowlarr → Settings → General → API Key
-const CORS_PROXY = 'https://localhost:3001'  // leave empty to use Prowlarr directly
-// ──────────────────────────────────────────────────────────────────────────────
+const PROXY_URL = 'https://localhost:3001'
 
 export default new class Prowlarr {
 
   /** @type {import('./').SearchFunction} */
   async single ({ titles, episode, exclusions }) {
-    if (!API_KEY || !titles?.length) return []
+    if (!titles?.length) return []
 
     const query = this.buildQuery(titles[0], episode)
     if (!query) return []
 
-    const base = (CORS_PROXY || PROWLARR_URL).replace(/\/+$/, '')
-    const url = `${base}/api/v1/search?query=${encodeURIComponent(query)}&type=search&categories=5070&categories=5000&categories=2000`
+    const url = `${PROXY_URL}/api/v1/search?query=${encodeURIComponent(query)}&type=search&categories=5070&categories=5000&categories=2000`
 
     try {
-      const res = await fetch(url, { headers: { 'X-Api-Key': API_KEY } })
+      const res = await fetch(url)
       if (!res.ok) return []
       const data = await res.json()
       if (!Array.isArray(data)) return []
@@ -40,12 +35,8 @@ export default new class Prowlarr {
   movie = this.single
 
   async test () {
-    if (!API_KEY || !PROWLARR_URL) return false
     try {
-      const base = (CORS_PROXY || PROWLARR_URL).replace(/\/+$/, '')
-      const res = await fetch(`${base}/api/v1/search?query=test&type=search&limit=1`, {
-        headers: { 'X-Api-Key': API_KEY }
-      })
+      const res = await fetch(`${PROXY_URL}/api/v1/search?query=test&type=search&limit=1`)
       return res.ok
     } catch {
       return false
