@@ -1,12 +1,14 @@
 [
   {
-    "id": "hayase.extension.prowlarr",
     "name": "Prowlarr",
+    "id": "hayase.extension.prowlarr",
     "version": "1.0.0",
     "type": "torrent",
     "accuracy": "high",
+    "ratio": 0,
     "media": "both",
     "languages": ["all"],
+    "icon": "https://raw.githubusercontent.com/Prowlarr/Prowlarr/develop/Logo/256.png",
     "update": "https://raw.githubusercontent.com/eruroueaito/hayase-prowlarr/main/index.json",
     "code": "https://raw.githubusercontent.com/eruroueaito/hayase-prowlarr/main/prowlarr.js"
   }
