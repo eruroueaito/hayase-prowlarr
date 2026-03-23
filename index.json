@@ -1,0 +1,30 @@
+[
+  {
+    "id": "hayase.extension.prowlarr",
+    "name": "Prowlarr",
+    "version": "1.0.0",
+    "type": "torrent",
+    "accuracy": "high",
+    "media": "both",
+    "languages": ["all"],
+    "update": "https://raw.githubusercontent.com/eruroueaito/hayase-prowlarr/main/index.json",
+    "code": "https://raw.githubusercontent.com/eruroueaito/hayase-prowlarr/main/prowlarr.js",
+    "options": {
+      "prowlarrUrl": {
+        "type": "string",
+        "description": "Prowlarr instance URL (e.g. http://localhost:9696)",
+        "default": "http://localhost:9696"
+      },
+      "apiKey": {
+        "type": "string",
+        "description": "Prowlarr API Key (Settings > General > Security)",
+        "default": ""
+      },
+      "corsProxyUrl": {
+        "type": "string",
+        "description": "CORS proxy URL (leave empty if Prowlarr has CORS configured)",
+        "default": "http://localhost:3001"
+      }
+    }
+  }
+]
